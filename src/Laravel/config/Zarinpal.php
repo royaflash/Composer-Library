@@ -6,7 +6,7 @@ return [
     | merchantID
     |--------------------------------------------------------------------------
     */
-    'merchantID' => 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
+    'merchantID' => env('ZARINPAL_MERCHANT_ID','XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'),
     /*
     |--------------------------------------------------------------------------
     | driver
