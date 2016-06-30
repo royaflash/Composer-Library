@@ -9,6 +9,12 @@ class RestDriver implements DriverInterface
 {
     protected $baseUrl = 'https://www.zarinpal.com/pg/rest/WebGate/';
 
+    public function __construct($baseUrl = null)
+    {
+        if($baseUrl)
+            $this->baseUrl = $baseUrl;
+    }
+    
     /**
      * request driver.
      *

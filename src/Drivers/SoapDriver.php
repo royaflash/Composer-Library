@@ -6,6 +6,12 @@ class SoapDriver implements DriverInterface
 {
     private $wsdlAddress = 'https://www.zarinpal.com/pg/services/WebGate/wsdl';
 
+    public function __construct($wsdlAddress = null)
+    {
+        if($wsdlAddress)
+            $this->wsdlAddress = $wsdlAddress;
+    }
+    
     /**
      * request driver.
      *

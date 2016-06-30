@@ -10,8 +10,9 @@ class Zarinpal
     private $merchantID;
     private $driver;
     private $Authority;
+    private $startPayAddress = 'https://zarinpal.com/pg/StartPay/';
 
-    public function __construct($merchantID, DriverInterface $driver = null)
+    public function __construct($merchantID, DriverInterface $driver = null, $startPayAddress = null)
     {
         if (is_null($driver)) {
             $driver = new RestDriver();
@@ -19,6 +20,8 @@ class Zarinpal
         }
         $this->merchantID = $merchantID;
         $this->driver = $driver;
+        if($startPayAddress)
+            $this->startPayAddress = $startPayAddress;
     }
 
     /**
@@ -83,7 +86,7 @@ class Zarinpal
 
     public function redirect()
     {
-        header('Location: https://www.zarinpal.com/pg/StartPay/'.$this->Authority);
+        header('Location: ' . $this->startPayAddress . $this->Authority);
         die;
     }
 
