@@ -7,9 +7,11 @@ class NuSoapDriver implements DriverInterface
     protected $client;
     private $wsdlAddress = 'https://www.zarinpal.com/pg/services/WebGate/wsdl';
 
-    public function __construct()
+    public function __construct($wsdlAddress = null)
     {
         //        require_once('./lib/nusoap.php');
+        if($wsdlAddress)
+            $this->wsdlAddress = $wsdlAddress;
         $this->client = new \nusoap_client($this->wsdlAddress, 'wsdl');
     }
 

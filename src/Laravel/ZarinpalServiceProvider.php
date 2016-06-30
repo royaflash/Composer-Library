@@ -21,20 +21,24 @@ class ZarinpalServiceProvider extends ServiceProvider
     {
         $this->app->singleton('Zarinpal', function () {
             $merchantID = config('Zarinpal.merchantID', 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
-            $driver = config('Zarinpal.Soap', 'Rest');
+            $driver = config('Zarinpal.driver', 'Rest');
+            $startPayAddress = config('Zarinpal.start_pay_address', 'https://zarinpal.com/pg/StartPay/');
             switch ($driver) {
                 case 'Soap':
-                    $driver = new SoapDriver();
+                    $wsdlAddress = config('Zarinpal.wsdl_address', 'https://www.zarinpal.com/pg/services/WebGate/wsdl');
+                    $driver = new SoapDriver($wsdlAddress);
                     break;
                 case 'NuSoap':
+                    $wsdlAddress = config('Zarinpal.wsdl_address', 'https://www.zarinpal.com/pg/services/WebGate/wsdl');
                     $driver = new NuSoapDriver();
                     break;
                 default:
-                    $driver = new RestDriver();
+                    $baseUrl = config('Zarinpal.rest_base_url', 'https://www.zarinpal.com/pg/rest/WebGate/');
+                    $driver = new RestDriver($baseUrl);
                     break;
             }
 
-            return new Zarinpal($merchantID, $driver);
+            return new Zarinpal($merchantID, $driver, $startPayAddress);
         });
     }
 
